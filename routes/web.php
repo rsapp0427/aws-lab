@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Controllers\LfmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,18 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+//FileManager用のルート設定
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+	\UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+// Route::get('/laravel-filemanager', [LfmController::class, 'show']);
+// Route::post('/laravel-filemanager/upload', [LfmController::class, 'upload']);
+
+Route::get('post', [PostController::class, 'index'])->name('post.index');
+Route::get('post/show/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+Route::patch('post/{post}', [PostController::class, 'update'])->name('post.update');
 Route::get('post/create', [PostController::class, 'create']);
+Route::post('post', [PostController::class, 'store'])->name('post.store');
+Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');

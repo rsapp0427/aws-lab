@@ -1,7 +1,7 @@
 <x-app-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-			新規投稿フォーム
+			投稿更新フォーム
 		</h2>
 	</x-slot>
 	<div class="max-w-7xl mx-auto px-6">
@@ -10,18 +10,19 @@
 				{{ session('message') }}
 			</div>
 		@endif
-		<form method="post" action="{{ route('post.store') }}">
+		<form method="post" action="{{ route('post.update', $post) }}">
 			@csrf
+			@method('patch')
 			<div class="mt-8">
 				<div class="w-full flex flex-col">
 					<label for="title" class="font-semibold mt-4">投稿タイトル</label>
-					<input type="text" name="title" class="w-auto py-2 border border-gray-300 rounded-md" id="title" value="{{ old('title') }}">
+					<input type="text" name="title" class="w-auto py-2 border border-gray-300 rounded-md" id="title" value="{{ old('title', $post->title) }}">
 				</div>
 			</div>
 
 			<div class="w-full flex flex-col">
 				<label for="body" class="font-semibold mt-4">投稿内容</label>
-				<textarea name="body" class="w-auto py-2 border border-gray-300 rounded-md" id="body" cols="30" rows="5">{{ old('body') }}</textarea>
+				<textarea name="body" class="w-auto py-2 border border-gray-300 rounded-md" id="body" cols="30" rows="5">{{ old('body', $post->body) }}</textarea>
 			</div>
 
 			<x-primary-button class="mt-4">
