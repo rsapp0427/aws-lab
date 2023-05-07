@@ -32,15 +32,10 @@
                 {{ $slot }}
             </main>
         </div>
-				<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-				<script>
-					const options = {
-						filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-						filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-						filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-						filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-					};
-					CKEDITOR.replace('body',options);
-				</script>
+
+				<!-- Page Footing -->
+				@if (isset($footer))
+					{{ $footer }}
+				@endif
     </body>
 </html>

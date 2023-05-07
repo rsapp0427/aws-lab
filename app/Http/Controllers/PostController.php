@@ -34,11 +34,15 @@ class PostController extends Controller
 		//バリデーション処理
 		$validated = $request->validate([
 			'title' => 'required',
+			'lead' => 'required',
+			'thumbnail' => 'required',
 			'body' => 'required',
 		]);
 
+		$validated['thumbnail_alt'] = 'サムネイルの画像';
+
 		//データベース登録処理
-		$post = Post::create($validated);
+		Post::create($validated);
 
 		return back()->with('message', '保存しました');
 	}
@@ -54,8 +58,12 @@ class PostController extends Controller
 	{
 		$validated = $request->validate([
 			'title' => 'required',
+			'lead' => 'required',
+			'thumbnail' => 'required',
 			'body' => 'required',
 		]);
+
+		$validated['thumbnail_alt'] = 'サムネイルの画像';
 
 		$post->update($validated);
 
